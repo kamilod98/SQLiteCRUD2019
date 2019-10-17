@@ -39,5 +39,15 @@ public class SignIn extends AppCompatActivity {
         }
     }
 
+    public void goSignUp(View view) {
+        Intent i = new Intent(SignIn.this, SignUp.class);
+        startActivity(i);
+    }
+
+    public void goListUsers(View view) {
+        Intent i = new Intent(SignIn.this, ListUsers.class);
+        startActivity(i);
+    }
+
 
 }

@@ -67,6 +67,7 @@
             android:layout_height="35dp"
             android:layout_margin="10dp"
             android:background="@color/colorBtnSignup"
+            android:onClick="goSignUp"
             android:text="SIGN UP" />
 
         <LinearLayout
@@ -80,9 +81,10 @@
                 android:id="@+id/btnFacebook"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/facebook"
-                android:padding="12.5dp"
-                android:layout_margin="10dp"/>
+                android:onClick="goListUsers"
+                android:padding="12.5dp" />
 
             <Button
                 android:id="@+id/btnTwitter"

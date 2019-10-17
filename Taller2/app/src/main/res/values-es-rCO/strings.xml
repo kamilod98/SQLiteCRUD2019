@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Taller2</string>
+    <string name="lbl_login">Login</string>
+    <string name="lbl_list_users">Lista de usuarios</string>
+</resources>

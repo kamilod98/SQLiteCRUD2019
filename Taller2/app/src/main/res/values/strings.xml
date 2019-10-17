@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Taller2</string>
+    <string name="lbl_list_users">List Users</string>
+    <string name="lbl_login">Login</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.taller2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;

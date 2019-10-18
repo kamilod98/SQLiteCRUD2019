@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,6 +30,18 @@ public class SignUp extends AppCompatActivity {
         CPasswd = findViewById(R.id.idConfirmPassword);
     }
 
+    private boolean validateEmail() {
+        String emailInput = Email.getText().toString().trim();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            Email.setError("Please enter a valid email address");
+            return false;
+        } else {
+            Email.setError(null);
+            return true;
+        }
+    }
+
     public void Signup(View view){
         connectionDB manager = new connectionDB( this, "shop", null, 1);
         SQLiteDatabase shop = manager.getWritableDatabase();
@@ -36,15 +49,18 @@ public class SignUp extends AppCompatActivity {
         String LNAME = Lname.getText().toString();;
         String EMAIL = Email.getText().toString();;
         String PASSWD = Passwd.getText().toString();;
+        String CPASSWD = CPasswd.getText().toString();
 
-        if (!FNAME.isEmpty() && !LNAME.isEmpty() && !EMAIL.isEmpty() && !PASSWD.isEmpty()){
+        if (!FNAME.isEmpty() && !LNAME.isEmpty() && !EMAIL.isEmpty() && !PASSWD.isEmpty() && !CPASSWD.isEmpty()) {
 
-            //Validacion: No repetir Email si existe
             Cursor row = shop.rawQuery("SELECT email FROM users WHERE email = '" + EMAIL + "'", null);
 
-            //if (row.moveToFirst())
-            if (row.getCount() > 0){
-                Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_SHORT).show();
+            if (!validateEmail()){
+                return;
+            }
+
+            if (row.getCount() > 0) {
+                Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show();
             } else {
                 ContentValues DATA = new ContentValues();
 
@@ -53,22 +69,26 @@ public class SignUp extends AppCompatActivity {
                 DATA.put("email", EMAIL);
                 DATA.put("password", PASSWD);
 
-                //Guardar valores en BD
                 shop.insert("users", null, DATA);
                 shop.close();
                 Fname.setText("");
                 Lname.setText("");
                 Email.setText("");
                 Passwd.setText("");
-                Toast.makeText(this, "El usuario fue creado", Toast.LENGTH_SHORT).show();
+                CPasswd.setText("");
+                Toast.makeText(this, "The user was created", Toast.LENGTH_SHORT).show();
 
             }
-        }else{
-            Toast.makeText(this, "Hay campos vacios", Toast.LENGTH_SHORT).show();
-            Fname.setError("El campo no puede ser vacio");
-            Lname.setError("El campo no puede ser vacio");
-            Email.setError("El campo no puede ser vacio");
-            Passwd.setError("El campo no puede ser vacio");
+        } else if (!PASSWD.equals(CPASSWD)) {
+            Passwd.setError("Passwords do not match");
+            CPasswd.setError("Passwords do not match");
+        } else {
+            Toast.makeText(this, "There are empty fields", Toast.LENGTH_SHORT).show();
+            Fname.setError("The field cannot be empty");
+            Lname.setError("The field cannot be empty");
+            Email.setError("The field cannot be empty");
+            Passwd.setError("The field cannot be empty");
+            CPasswd.setError("The field cannot be empty");
         }
 
     }

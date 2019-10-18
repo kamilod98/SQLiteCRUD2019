@@ -3,11 +3,15 @@ package com.example.taller2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.taller2.clases.connectionDB;
 
 import java.util.regex.Pattern;
 
@@ -24,18 +28,50 @@ public class SignIn extends AppCompatActivity {
         Passwd = findViewById(R.id.idPassword);
     }
 
-    private boolean validarEmail(String email) {
-        Pattern pattern = Patterns.EMAIL_ADDRESS;
-        return pattern.matcher(email).matches();
+    private boolean validateEmail() {
+        String emailInput = Email.getText().toString().trim();
+
+        if (emailInput.isEmpty()) {
+            Email.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            Email.setError("Please enter a valid email address");
+            return false;
+        } else {
+            Email.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = Passwd.getText().toString().trim();
+
+        if (passwordInput.isEmpty()) {
+            Passwd.setError("Field can't be empty");
+            return false;
+        } else {
+            Passwd.setError(null);
+            return true;
+        }
     }
 
     public void SignIn(View view){
-        if (!validarEmail("user@mail.com")){
-            Email.setError("Email no válido");
+        connectionDB manager = new connectionDB( this, "shop", null, 1);
+        SQLiteDatabase shop = manager.getWritableDatabase();
+        String EMAIL = Email.getText().toString();;
+        String PASSWD = Passwd.getText().toString();;
+
+        Cursor rowEmail = shop.rawQuery("SELECT email FROM users WHERE email = '" + EMAIL + "'", null);
+        Cursor rowPasswd = shop.rawQuery("SELECT password FROM users WHERE password = '" + PASSWD + "'", null);
+
+        if (!validateEmail() | !validatePassword()) {
+            return;
+        }
+
+        if (rowEmail.getCount() > 0 && rowPasswd.getCount() > 0){
+            goListUsers(view);
         } else {
-            //Intent intent =  new Intent(SignIn.this, ListUsers.class);
-            //startActivity(intent);
-            Toast.makeText(this, "El correo es correcto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Incorrect user or password", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -48,6 +84,8 @@ public class SignIn extends AppCompatActivity {
         Intent i = new Intent(SignIn.this, ListUsers.class);
         startActivity(i);
     }
+
+    
 
 
 }

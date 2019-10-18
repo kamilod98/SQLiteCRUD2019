@@ -58,6 +58,7 @@ public class SignIn extends AppCompatActivity {
     public void SignIn(View view){
         connectionDB manager = new connectionDB( this, "shop", null, 1);
         SQLiteDatabase shop = manager.getWritableDatabase();
+
         String EMAIL = Email.getText().toString();;
         String PASSWD = Passwd.getText().toString();;
 

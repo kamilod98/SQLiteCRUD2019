@@ -1,46 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:src="@drawable/usuario"
-        android:id="@+id/image"/>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+        android:id="@+id/list_avatar_icon"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"
+        android:src="@drawable/usuario" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_margin="5dp"
-            android:textSize="20sp"
-            android:id="@+id/showName">
+    <TextView
+        android:id="@+id/showUsername"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/list_avatar_icon"
+        android:gravity="center_vertical"
+        android:text="Username"
+        android:textStyle="bold"
+        android:textSize="20sp" />
 
-        </androidx.appcompat.widget.AppCompatTextView>
+    <TextView
+        android:id="@+id/showEmail"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:ellipsize="marquee"
+        android:text="Email"
+        android:textColor="#a9a9a9"
+        android:textSize="18sp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textColor="#a9a9a9"
-            android:textStyle="bold"
-            android:layout_margin="5dp"
-            android:textSize="20sp"
-            android:id="@+id/showEmail">
-
-        </androidx.appcompat.widget.AppCompatTextView>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</LinearLayout>
+</RelativeLayout>

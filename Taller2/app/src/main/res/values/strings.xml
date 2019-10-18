@@ -9,4 +9,7 @@
     <string name="signin">Sign In</string>
     <string name="signup">Sign Up</string>
     <string name="username">Username</string>
+    <string name="delete_user">Delete user</string>
+    <string name="update_user">Update user</string>
+    <string name="signout">Sign Out</string>
 </resources>

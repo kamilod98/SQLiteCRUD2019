@@ -16,8 +16,14 @@ public class connectionDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase shop) {
         shop.execSQL("create table users(id integer primary key autoincrement not null," +
-                "firstname text not null, lastname text not null, " +
-                "email text not null, password text)");
+                "firstname text not null, " +
+                "lastname text not null, " +
+                "email text not null, " +
+                "password text," +
+                "birth date, " +
+                "country text," +
+                "phone text," +
+                "gender text)");
     }
 
     @Override
@@ -26,9 +32,26 @@ public class connectionDB extends SQLiteOpenHelper {
     }
 
     public Cursor SelectUserData(){
-        SQLiteDatabase market = this.getReadableDatabase();
+        SQLiteDatabase shop = this.getReadableDatabase();
 
-        Cursor rows = market.rawQuery("SELECT * FROM users", null);
+        Cursor rows = shop.rawQuery("SELECT * FROM users", null);
         return rows;
+    }
+
+    public Boolean checkEmailAvailability(String email){
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor row = database.rawQuery("SELECT email FROM users WHERE email = '" + email + "'",null);
+        return row.getCount() > 0;
+    }
+
+    public Boolean checkUserCredentials(String email, String password){
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor row = database.rawQuery("SELECT email, password FROM users WHERE email = '" + email + "' AND password = '" + password + "'",null);
+        return row.getCount() > 0;
+    }
+
+    public void deleteUser(String email){
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor rows = database.rawQuery("DELETE FROM users WHERE email = '"+email+"'",null);
     }
 }

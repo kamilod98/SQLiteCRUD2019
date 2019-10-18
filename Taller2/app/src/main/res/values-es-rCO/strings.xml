@@ -10,4 +10,7 @@
     <string name="signup">Registrarse</string>
     <string name="firstname">Registrarse</string>
     <string name="lastname">Registrarse</string>
+    <string name="update_user">Actualizar usuario</string>
+    <string name="delete_user">Eliminar usuario</string>
+    <string name="signout">Cerrar sesion</string>
 </resources>

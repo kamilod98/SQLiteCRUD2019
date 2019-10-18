@@ -2,4 +2,11 @@
     <string name="app_name">Taller2</string>
     <string name="lbl_list_users">User list</string>
     <string name="lbl_login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
+    <string name="username">Username</string>
 </resources>
